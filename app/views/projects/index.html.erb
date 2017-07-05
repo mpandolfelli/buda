@@ -1,0 +1,42 @@
+<h1>Listing projects</h1>
+ 
+<table width="100%" style="border: 1px solid #ccc">
+  <tr>
+    <th>name</th>
+    <th>description</th>
+    <th>client</th>
+    <th>status</th>
+    <th>deadline</th>
+    <th>owner</th>
+    <th>assigned</th>
+    <th colspan="4">actions</th>
+  </tr>
+ 
+  <% @projects.each do |project| %>
+    <tr>
+      <td><%= project.name %></td>
+      <td><%= project.description %></td>
+      <td bgcolor="<%= project.client.color %>"><%= project.client.name %></td>
+      <td><%= raw status(project.status_id) %></td>
+      <td><%= project.deadline %></td>
+      <td><%= project.user.email %></td>
+      <td> 
+        <%  if project.assigned_id %>
+          <%= project.assigned.email %>
+        <% else %>
+          Not assigned
+        <% end %>
+      </td> 
+      <td><%= link_to 'Show', project_path(project) %></td>
+      <td>
+        <%  if !project.assigned_id%>
+          <%= link_to "Assign", {:controller => "projects", :action => "assign", :project_id => project.id }%>
+        <% end %>
+      </td>
+      <td><%= link_to 'Edit', edit_project_path(project) %></td>
+      <td><%= link_to 'Destroy', project_path(project),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>

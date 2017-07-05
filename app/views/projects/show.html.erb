@@ -1,0 +1,89 @@
+<h2>Project</h2>
+<p>
+  <strong>name:</strong>
+  <%= @project.name %>
+</p>
+ 
+<p>
+  <strong>description:</strong>
+  <%= @project.description %>
+</p>
+<p>
+  <strong>client:</strong>
+  <%= @project.client.name %>
+</p>
+<p>
+  <strong>deadline:</strong>
+  <%= @project.deadline %>
+</p>
+<p>
+  <strong>registered:</strong>
+  <%= @project.created_at %>
+</p>
+<p>
+  <strong>status:</strong>
+  <%= raw status(@project.status_id) %>
+</p>
+<p>
+  <strong>assigned:</strong>
+  <%  if @project.assigned_id %>
+    <%= @project.assigned.email %>
+  <% else %>
+    Not assigned
+  <% end %>
+</p>
+
+<hr>
+<h2>Tasks</h2>
+
+<table style="border:1px solid #ccc;">
+<tr>
+  <td>name</td>
+  <td>description</td>
+  <td>deadline</td>
+  <td>status</td>
+  <td>actions</td>
+</tr>
+<% @project.tasks.each do |task| %>
+  <tr>
+  <td>    
+    <%= task.name %>
+  </td>
+  <td>
+    <%= task.description %>
+  </td>
+  <td>
+    <%= task.deadline %>
+  </td>
+
+  <td>
+    
+    <%= raw status(task.status_id) %>
+  </td>
+  <td><%= link_to 'Show', task_path(task) %></td>
+  </tr>
+<% end %>
+</table>
+<hr>
+
+<h2>Add a task:</h2>
+<%= form_for([@project, @project.tasks.build]) do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :deadline %><br>
+    <%= f.datetime_local_field :deadline %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+
+<%= link_to 'Back', projects_path %>

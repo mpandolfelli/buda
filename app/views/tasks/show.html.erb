@@ -1,0 +1,52 @@
+<h2>Tasks</h2>
+<%= link_to "Send to qa", {:controller => "tasks", :action => "sendToQa", :task_id => @task.id }%>
+<p>
+  <strong>name:</strong>
+  <%= @task.name %>
+</p>
+ 
+<p>
+  <strong>description:</strong>
+  <%= @task.description %>
+</p>
+<p>
+  <strong>status:</strong>
+  <%= raw status(@task.status_id) %>
+</p>
+<p>
+  <strong>deadline:</strong>
+  <%= @task.deadline %>
+</p>
+<p>
+  <strong>registered:</strong>
+  <%= @task.created_at %>
+</p>
+
+<hr>
+<h2>Comments</h2>
+<% @task.comments.each do |comment| %>
+  <p>
+    <strong> <%= comment.user.email %></strong>
+    dijo <%= comment.comment %> el  <%= comment.created_at %>
+  </p>
+ 
+ 
+<% end %>
+<hr>
+<h2>Add a comment:</h2>
+<%= form_for([@task, @task.comments.build]) do |f| %>
+  <p>
+    <%= f.label :comment %><br>
+    <%= f.text_field :comment %>
+  </p>
+  
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+ 
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>
+
+
+
