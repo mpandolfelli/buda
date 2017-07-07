@@ -14,3 +14,38 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= require semantic-ui
+
+$(document).ready(function(){
+	var open = false;
+
+	$('.search-projects').click(function(){
+		if(open){
+			open = false;
+			$('.search-box').hide();
+		}else{
+			open = true;
+			$('.search-box').show();
+		}	
+		
+	});
+	$('.ui.search')
+	  .search({
+	    apiSettings: {
+	      url: 'getProjects?query={query}'
+	    },
+	    fields: {
+	      results : 'projects',
+	      title   : 'name',
+	      actionUrl     : 'html_url'
+	    },
+	    action: {
+          "url": '/path/to/results',
+          "text": "View all 202 results"
+        },
+	    minCharacters : 3
+	  })
+	;
+
+	
+});

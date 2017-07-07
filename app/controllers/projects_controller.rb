@@ -6,10 +6,13 @@ class ProjectsController < ApplicationController
  	# API METHOD FOR PROJECTS
  	#******************************
 	def index
-    	#@projects = Project.all
-    	
-
-    	@projects = Project.joins(:tasks, :assigned, :user).where('tasks.status_id' => STATUS_QA)
+		if params[:status_id] 
+			@projects = Project.where(:status_id => params[:status_id])
+		else
+    		@projects = Project.all
+    	end
+    	#Estos proyoectos son los que tienen tareas en qa, para la vista de usuario de qa.
+    	#@projects = Project.joins(:tasks, :assigned, :user).where('tasks.status_id' => STATUS_QA)
   	end
 
   	def show
@@ -66,6 +69,13 @@ class ProjectsController < ApplicationController
  	# HELPER FUNCTIONS
  	#******************************
 
+ 	def getProjects
+ 		#@projects = Project.like(:name => params[:query])
+ 		@projects = Project.where("name LIKE ? OR name LIKE ?", "#{params[:query]}%", "% #{params[:query]}%")
+
+ 		render :json => {:projects => @projects}
+ 	end	
+
  	#Asignar proyecto a usuario
  	#Se actualiza el status del proyecto
  	def assign
@@ -75,6 +85,7 @@ class ProjectsController < ApplicationController
 		redirect_to @project
 	end	
 
+	#Funcion para realizar queries customizables
 	def query(sql)
         results = ActiveRecord::Base.connection.execute(sql)
         if results.present?

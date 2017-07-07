@@ -1,49 +1,59 @@
-<h2>Project</h2>
-<p>
-  <strong>name:</strong>
-  <%= @project.name %>
-</p>
+<div class="ui grid">
+  <div class="four wide column">
+    <h2>Project</h2>
+    <p>
+      <strong>name:</strong>
+      <%= @project.name %>
+    </p>
+     
+    <p>
+      <strong>description:</strong>
+      <%= @project.description %>
+    </p>
+    <p>
+      <strong>client:</strong>
+      <%= @project.client.name %>
+    </p>
+    <p>
+      <strong>deadline:</strong>
+      <%= @project.deadline %>
+    </p>
+    <p>
+      <strong>registered:</strong>
+      <%= @project.created_at %>
+    </p>
+    <p>
+      <strong>status:</strong>
+      <%= raw status(@project.status_id) %>
+    </p>
+    <p>
+      <strong>assigned:</strong>
+      <%  if @project.assigned_id %>
+        <%= @project.assigned.email %>
+      <% else %>
+        Not assigned
+      <% end %>
+    </p>
+  </div>
  
-<p>
-  <strong>description:</strong>
-  <%= @project.description %>
-</p>
-<p>
-  <strong>client:</strong>
-  <%= @project.client.name %>
-</p>
-<p>
-  <strong>deadline:</strong>
-  <%= @project.deadline %>
-</p>
-<p>
-  <strong>registered:</strong>
-  <%= @project.created_at %>
-</p>
-<p>
-  <strong>status:</strong>
-  <%= raw status(@project.status_id) %>
-</p>
-<p>
-  <strong>assigned:</strong>
-  <%  if @project.assigned_id %>
-    <%= @project.assigned.email %>
-  <% else %>
-    Not assigned
-  <% end %>
-</p>
+  <div class="twelve wide column">
+    
+<h4 class="ui horizontal divider header separator">
+  <i class="bar newspaper icon"></i>
+  Tasks
+</h4>
 
-<hr>
-<h2>Tasks</h2>
-
-<table style="border:1px solid #ccc;">
+<table class="ui stackable table">
+<thead>
 <tr>
-  <td>name</td>
-  <td>description</td>
-  <td>deadline</td>
-  <td>status</td>
-  <td>actions</td>
+  <th>name</th>
+  <th>description</th>
+  <th>deadline</th>
+  <th>status</th>
+  <th>actions</th>
 </tr>
+</thead>
+<tbody>
 <% @project.tasks.each do |task| %>
   <tr>
   <td>    
@@ -63,27 +73,31 @@
   <td><%= link_to 'Show', task_path(task) %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 <hr>
 
 <h2>Add a task:</h2>
-<%= form_for([@project, @project.tasks.build]) do |f| %>
-  <p>
+<%= form_for([@project, @project.tasks.build], :html => {:class => 'ui form'}) do |f| %>
+  <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :description %><br>
     <%= f.text_area :description %>
-  </p>
-  <p>
+  </div>
+  <div class="field">
     <%= f.label :deadline %><br>
     <%= f.datetime_local_field :deadline %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
+  </div>
+  <div class="field">
+    <%= f.submit :class => 'ui button'%>
+  </div>
 <% end %>
 
 
 <%= link_to 'Back', projects_path %>
+  </div>
+ 
+</div>

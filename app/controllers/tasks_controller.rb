@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 	include Constants
 
 	#******************************
- 	# API METHOD FOR PROJECTS
+ 	# API METHOD FOR TASKS
  	#******************************
 	def index
     	@project = Project.find(params[:project_id])

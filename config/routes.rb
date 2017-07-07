@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 	#Custom routes to custom methods
 	get 'projects/index'
 	get '/projects/assign' => 'projects#assign'
+	get '/projects/getProjects' => 'projects#getProjects'
 	get '/tasks/sendToQa' => 'tasks#sendToQa'
 	get '/users/setProfile' => 'users#setProfile'
 
