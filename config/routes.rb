@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 	get 'projects/index'
 	get '/projects/assign' => 'projects#assign'
 	get '/projects/getProjects' => 'projects#getProjects'
+	get '/projects/searchProjects' => 'projects#searchProjects'
 	get '/tasks/sendToQa' => 'tasks#sendToQa'
 	get '/users/setProfile' => 'users#setProfile'
 
@@ -25,11 +26,12 @@ Rails.application.routes.draw do
 	resources :status
 	resources :tasks
 	resources :admin
+	resources :comments
 	
 	resources :projects do
-	  resources :tasks
-	  
-	
+	  resources :tasks do
+	  	resources :comments
+	  end
 	end
 
 	resources :tasks do

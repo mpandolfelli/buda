@@ -1,9 +1,9 @@
-<div class="ui grid">
+<div class="ui grid stackable">
   <div class="four wide column">
     <h2>Project</h2>
     <p>
       <strong>name:</strong>
-      <%= @project.name %>
+      <%= @project.name %> 
     </p>
      
     <p>
@@ -37,67 +37,138 @@
   </div>
  
   <div class="twelve wide column">
-    
-<h4 class="ui horizontal divider header separator">
-  <i class="bar newspaper icon"></i>
-  Tasks
-</h4>
+        
+    <h4 class="ui horizontal divider header separator">
+      <i class="bar newspaper icon"></i>
+      Tasks
+    </h4>
 
-<table class="ui stackable table">
-<thead>
-<tr>
-  <th>name</th>
-  <th>description</th>
-  <th>deadline</th>
-  <th>status</th>
-  <th>actions</th>
-</tr>
-</thead>
-<tbody>
-<% @project.tasks.each do |task| %>
-  <tr>
-  <td>    
-    <%= task.name %>
-  </td>
-  <td>
-    <%= task.description %>
-  </td>
-  <td>
-    <%= task.deadline %>
-  </td>
+    <table class="ui stackable table">
+    <thead>
+    <tr>
+      <th>name</th>
+      <th>description</th>
+      <th>deadline</th>
+      <th>status</th>
+      <th>actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @project.tasks.each do |task| %>
+      <tr>
+      <td>    
+        <%= task.name %>
+      </td>
+      <td>
+        <%= task.description %>
+      </td>
+      <td>
+        <%= task.deadline %>
+      </td>
 
-  <td>
-    
-    <%= raw status(task.status_id) %>
-  </td>
-  <td><%= link_to 'Show', task_path(task) %></td>
-  </tr>
-<% end %>
-</tbody>
-</table>
-<hr>
+      <td>
+        
+        <%= raw status(task.status_id) %>
+      </td>
+      <td><%= link_to 'Show', task_path(task) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+    </table>
+    <hr>
 
-<h2>Add a task:</h2>
-<%= form_for([@project, @project.tasks.build], :html => {:class => 'ui form'}) do |f| %>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :deadline %><br>
-    <%= f.datetime_local_field :deadline %>
-  </div>
-  <div class="field">
-    <%= f.submit :class => 'ui button'%>
-  </div>
-<% end %>
+    <h2>Add a task:</h2>
+    <%= form_for([@project, @project.tasks.build], :html => {:class => 'ui form'}) do |f| %>
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.text_area :description %>
+      </div>
+      <div class="field">
+        <%= f.label :deadline %><br>
+        <%= f.datetime_local_field :deadline %>
+      </div>
+      <div class="field">
+        <%= f.submit :class => 'ui button'%>
+      </div>
+    <% end %>
 
 
-<%= link_to 'Back', projects_path %>
+    <%= link_to 'Back', projects_path %>
+
+    <!-- Project linetime-->
+    <div style="margin-top:50px;width:100%">
+     
+
+      <div class="ui threaded comments">
+        <h4 class="ui horizontal divider header separator">
+          <i class="bar newspaper icon"></i>
+          Project Timeline
+        </h4>
+        <div class="comment">
+          <a class="avatar">
+            <img src="https://semantic-ui.com/images/avatar/small/joe.jpg">
+          </a>
+          <div class="content">
+            <a class="author"><%= @project.user.email %></a>
+            <div class="metadata">
+              <span class="date"><%= @project.created_at %></span>
+            </div>
+            <div class="text">
+             Creo el proyecto.
+            </div>
+            
+          </div>
+        </div>
+        <% @project.tasks.each do |task| %>
+          <% if task.name%>
+            <div class="comment">
+              <a class="avatar">
+                <img src="https://semantic-ui.com/images/avatar/small/joe.jpg">
+              </a>
+              <div class="content">
+                <a class="author">Elliot Fu</a>
+                <div class="metadata">
+                  <span class="date"> <%= task.created_at %></span>
+                </div>
+                <div class="text">
+                  <p>Agrego la tarea <strong><%= task.name %></strong></p>
+                </div>
+               
+              </div>
+              <div class="comments">
+                <% task.comments.collect do |comment| %>
+                  <div class="comment">
+                    <a class="avatar">
+                      <img src="https://semantic-ui.com/images/avatar/small/joe.jpg">
+                    </a>
+                    <div class="content">
+                      <a class="author"><%= comment.user.email %></a>
+                      <div class="metadata">
+                        <span class="date"><%= comment.created_at %></span>
+                      </div>
+                      <div class="text">
+                        <%= comment.comment %>
+                      </div>
+                      
+                    </div>
+                  </div>
+                <% end %>
+
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <div class="comment final-comment">
+          Nada mas por aqui
+        </div>
+      </div>
+
+    </div>
+    <!-- / Project linetime-->
   </div>
  
 </div>

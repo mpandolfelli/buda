@@ -1,9 +1,10 @@
 <h1>Listing projects</h1>
-<div class="ui  five item menu">
-  <%= link_to "All", {:controller => "projects", :action => "index"},  {:class => 'active item item-all'}%>
-  <%= link_to "Pending", {:controller => "projects", :action => "index", :status_id => 1 }, {:class => 'item item-pending'} %>
-  <%= link_to "In Progress", {:controller => "projects", :action => "index", :status_id => 2 }, {:class => 'item item-inprogress'}%>
-  <%= link_to "Finished", {:controller => "projects", :action => "index", :status_id => 4}, {:class => 'item item-finished'}%>
+<div class="ui five item menu" id="filters">
+  <a href="javascript:void(0);" class="active item item-all" data-status="">All</a>
+  <a href="javascript:void(0);" class="item item-pending" data-status="1">Pending</a>
+  <a href="javascript:void(0);" class="item item-inprogress" data-status="2">In Progress</a>
+  <a href="javascript:void(0);" class="item item-finished" data-status="4">Finished</a>
+  
   <a href="javascript:void(0);" class="item search-projects"><i class="icon search"></i> Search</a>
 
  
@@ -18,29 +19,6 @@
   </div>
 </div>
 <div class="ui three stackable cards app-projects">
-  <% @projects.each do |project| %>
-    <div class="ui card">
-      <div class="content">
-       
-       
-        <div class="header"><%= project.name %></div>
-        <div class="ui ribbon label"><%= project.client.name %></div>
-
-        <div class="description">
-          <p><%= project.description %></p>
-        </div>
-      </div>
-      <div class="extra content">
-          <%= link_to 'View', project_path(project) %> 
-          <%  if !project.assigned_id%>
-            | <%= link_to "Assign", {:controller => "projects", :action => "assign", :project_id => project.id }%>
-          <% end %> 
-      </div>
-      <div class="extra content">
-        <span class="ui status-<%= project.status_id %> label"><%= raw status(project.status_id) %></span> | <i class="calendar icon"></i> <%= project.deadline %>
-      </div>
-    </div>
-  <% end %>
   
   
   

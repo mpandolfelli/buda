@@ -55,34 +55,37 @@ body {
 
 .status-1{
 	background-color: #db2828!important;
-    border-color: #db2828!important;
-    color:#fff!important;
+  border-color: #db2828!important;
+  color:#fff!important;
 }
 .status-2{
 	background-color: #f2711c!important;
-    border-color: #f2711c!important;
-    color:#fff!important;
+  border-color: #f2711c!important;
+  color:#fff!important;
 }
 .status-3{
 	background-color: #1678c2!important;
-    border-color: #1678c2!important;
-    color:#fff!important;
+  border-color: #1678c2!important;
+  color:#fff!important;
 }
 .status-4{
 	background-color: #21ba45!important;
-    border-color: #21ba45!important;
-    color:#fff!important;
+  border-color: #21ba45!important;
+  color:#fff!important;
 }
 
+.search-projects, .item-all{
+  border-bottom: 2px solid #333;
+}
 
 .item-pending{
- border-bottom: 1px solid #db2828;
+ border-bottom: 2px solid #db2828;
 }
 .item-inprogress{
- border-bottom: 1px solid #f2711c;
+ border-bottom: 2px solid #f2711c;
 }
 .item-finished{
- border-bottom: 1px solid #21ba45;
+ border-bottom: 2px solid #21ba45;
 }
 
 .search-box{
@@ -92,4 +95,11 @@ body {
   .input{
     width: 100%;
   }
+}
+
+.final-comment{
+  text-align:center;
+  background-color:#ddd!important;
+  color:#555;
+  padding:8px 0!important;
 }

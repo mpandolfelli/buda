@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
 
   	def show
     	@project = Project.find(params[:id])
-  		
+  		#render plain: @project.tasks.comments.inspect
   	end
 
 	def new
@@ -69,7 +69,8 @@ class ProjectsController < ApplicationController
  	# HELPER FUNCTIONS
  	#******************************
 
- 	def getProjects
+ 	#Funcion para buscar proyectos desde el buscador
+ 	def searchProjects
  		#@projects = Project.like(:name => params[:query])
  		@projects = Project.where("name LIKE ? OR name LIKE ?", "#{params[:query]}%", "% #{params[:query]}%")
 
@@ -94,6 +95,16 @@ class ProjectsController < ApplicationController
             return nil
         end
     end
+
+    #Funcion para traer por ajax todos los proyectos con filtros
+    def getProjects
+    	if params[:status_id] 
+			@projects = Project.where(:status_id => params[:status_id])
+		else
+    		@projects = Project.all
+    	end
+    	render :json => @projects, include:  ['user', 'client', 'assigned']  
+    end	
 
 	private
 		def project_params

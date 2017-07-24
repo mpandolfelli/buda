@@ -6,6 +6,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
@@ -50,7 +51,27 @@
         <%= yield %>  
     </div>
      
-    
-   
+    <!-- Templates -->
+    <script id="template-projects-list" type="x-tmpl-mustache">
+      <div class="ui card">
+        <div class="content">        
+          <div class="header">{{name}}</div>
+          <div class="ui ribbon label">{{client}}</div>
+
+          <div class="description">
+            <p>{{description}}</p>
+          </div>
+        </div>
+        <div class="extra content">
+            <a href="projects/{{id}}">View</a>
+            {{^isAssigned}}
+              |  <a href="assign?project_id={{id}}">Assign</a>
+            {{/isAssigned}}
+        </div>
+        <div class="extra content">
+          <span class="ui status-{{status_id}} label">{{status}}</span> | <i class="calendar icon"></i>{{deadline}}
+        </div>
+      </div>
+    </script>
   </body>
 </html>
