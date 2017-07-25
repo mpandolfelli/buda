@@ -45,7 +45,7 @@ $(document).ready(function(){
 	$('.ui.search')
 	  .search({
 	    apiSettings: {
-	      url: 'projects/searchProjects?query={query}'
+	      url: 'http://localhost:3000/projects/searchProjects?query={query}'
 	    },
 	    fields: {
 	      results : 'projects',
@@ -74,9 +74,9 @@ $(document).ready(function(){
 		Mustache.parse(template);  
 
 		if(status_id){
-			var url = 'projects/getProjects?status_id='+status_id;
+			var url = 'http://localhost:3000/projects/getProjects?status_id='+status_id;
 		}else{
-			var url = 'projects/getProjects';
+			var url = 'http://localhost:3000/projects/getProjects';
 		}
 		
 		$.ajax({

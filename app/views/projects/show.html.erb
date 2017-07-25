@@ -2,55 +2,60 @@
   <div class="four wide column">
     <h2>Project</h2>
     <p>
-      <strong>name:</strong>
+      <strong>Name:</strong>
       <%= @project.name %> 
     </p>
      
     <p>
-      <strong>description:</strong>
+      <strong>Description:</strong>
       <%= @project.description %>
     </p>
     <p>
-      <strong>client:</strong>
+      <strong>Client:</strong>
       <%= @project.client.name %>
     </p>
     <p>
-      <strong>deadline:</strong>
+      <strong>Deadline:</strong>
       <%= @project.deadline %>
     </p>
     <p>
-      <strong>registered:</strong>
+      <strong>Registered:</strong>
       <%= @project.created_at %>
     </p>
+    
     <p>
-      <strong>status:</strong>
-      <%= raw status(@project.status_id) %>
-    </p>
-    <p>
-      <strong>assigned:</strong>
+      <strong>Assigned:</strong>
       <%  if @project.assigned_id %>
         <%= @project.assigned.email %>
       <% else %>
         Not assigned
       <% end %>
     </p>
+    <p>
+      <div class="ui progress ">
+      <div class="bar progress-<%= @project.status_id %>">
+        <div class="progress"></div>
+      </div>
+      <div class="label"><%= raw status(@project.status_id) %></div>
+    </div>
+    </p>
   </div>
  
   <div class="twelve wide column">
-        
+    
     <h4 class="ui horizontal divider header separator">
-      <i class="bar newspaper icon"></i>
+      
       Tasks
     </h4>
 
     <table class="ui stackable table">
     <thead>
     <tr>
-      <th>name</th>
-      <th>description</th>
-      <th>deadline</th>
-      <th>status</th>
-      <th>actions</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Deadline</th>
+      <th>Status</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -70,15 +75,20 @@
         
         <%= raw status(task.status_id) %>
       </td>
-      <td><%= link_to 'Show', task_path(task) %></td>
+      <td><a href="tasks/<%=task.id%>"> <i class="search icon"></i></a></td>
       </tr>
     <% end %>
     </tbody>
     </table>
-    <hr>
+   
 
-    <h2>Add a task:</h2>
+    <h4 class="ui horizontal divider header separator">
+      
+      Add task
+    </h4>
+
     <%= form_for([@project, @project.tasks.build], :html => {:class => 'ui form'}) do |f| %>
+    
       <div class="field">
         <%= f.label :name %><br>
         <%= f.text_field :name %>
@@ -100,13 +110,13 @@
     <%= link_to 'Back', projects_path %>
 
     <!-- Project linetime-->
-    <div style="margin-top:50px;width:100%">
+    <div class="ui" style="margin-top:50px;width:100%">
      
 
       <div class="ui threaded comments">
         <h4 class="ui horizontal divider header separator">
-          <i class="bar newspaper icon"></i>
-          Project Timeline
+          
+          Project activity
         </h4>
         <div class="comment">
           <a class="avatar">
@@ -130,12 +140,12 @@
                 <img src="https://semantic-ui.com/images/avatar/small/joe.jpg">
               </a>
               <div class="content">
-                <a class="author">Elliot Fu</a>
+                
                 <div class="metadata">
                   <span class="date"> <%= task.created_at %></span>
                 </div>
                 <div class="text">
-                  <p>Agrego la tarea <strong><%= task.name %></strong></p>
+                  <p>Se agrego la tarea <strong><%= task.name %></strong></p>
                 </div>
                
               </div>
